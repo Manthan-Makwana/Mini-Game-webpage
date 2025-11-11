@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CRACK ADMIN — Settings</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="logo-placeholder">
+        <div class="logo-box">LOGO</div>
+        <div class="brand">CRACK ADMIN</div>
+      </div>
+      <nav class="nav">
+        <a href="admin.html" class="nav-item"><i class="fa fa-house"></i><span>Dashboard</span></a>
+        <a href="users.html" class="nav-item"><i class="fa fa-users"></i><span>Users</span></a>
+        <a href="games.html" class="nav-item"><i class="fa fa-gamepad"></i><span>Games</span></a>
+        <a href="tournaments.html" class="nav-item"><i class="fa fa-trophy"></i><span>Tournaments</span></a>
+        <a href="settings.html" class="nav-item active"><i class="fa fa-gear"></i><span>Settings</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="toggleSidebar5" class="icon-btn"><i class="fa fa-bars"></i></button>
+        <div class="top-actions">
+          <div class="search">
+            <input placeholder="Search settings..." />
+            <i class="fa fa-search search-icon"></i>
+          </div>
+          <div class="profile">Admin <i class="fa fa-user-circle"></i></div>
+        </div>
+      </header>
+
+      <section class="content">
+        <h1>Settings</h1>
+        <div class="settings-grid">
+          <div class="panel">
+            <h3>Site Branding</h3>
+            <div class="form-row">
+              <label>Site Title</label>
+              <input value="CRACK ADMIN" />
+            </div>
+            <div class="form-row">
+              <label>Logo (drop file)</label>
+              <div class="logo-drop">Drop your logo file here (placeholder)</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Theme</h3>
+            <div class="form-row">
+              <label>Primary Accent</label>
+              <input type="color" value="#00b3ff" />
+            </div>
+            <div class="form-row">
+              <label>Dark Mode</label>
+              <select>
+                <option>Enabled</option>
+                <option>Disabled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">© <span id="year5"></span> CRACK ADMIN</footer>
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

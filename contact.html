@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - CRACK</title>
+    
+    <!-- Using Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- Base Body Styles --- */
+        body {
+            min-height: 100vh;
+            background-color: #f4f4f5; /* Clean light gray background */
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- Navigation Styles --- */
+        nav {
+            background-color: #bbbb9d;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        nav ul {
+            width: 100%;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav li {
+            height: 70px;
+        }
+
+        nav a {
+            height: 100%;
+            padding: 0 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: black;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background-color: lightgray;
+        }
+
+        nav li:first-child {
+            margin-right: auto;
+        }
+        
+        nav li img {
+            height: 50px;
+            width: auto;
+            margin: 10px 0;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100vh;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .sidebar li {
+            width: 100%;
+        }
+
+        .sidebar a {
+            width: 100%;
+            color: #1f1f1f;
+        }
+
+        .menu-button {
+            display: none;
+        }
+
+        /* --- Main Content --- */
+        main.contact-container {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-hero .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* --- Content Wrapper (2-col) --- */
+        .contact-content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .contact-content-wrapper {
+                grid-template-columns: 2fr 1fr; /* 2/3 for form, 1/3 for info */
+            }
+        }
+
+        /* --- Card Base Style (for all cards) --- */
+        .card-style {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border-top: 4px solid #bbbb9d;
+        }
+        
+        .card-style h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Contact Info Card --- */
+        .contact-info-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-card li {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-info-card li strong {
+            color: #333;
+            margin-right: 0.5rem;
+        }
+        
+        .contact-info-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-info-card .social-links a {
+            text-decoration: none;
+            color: #3a7c7c;
+            font-weight: 500;
+            margin-right: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .contact-info-card .social-links a:hover {
+            text-decoration: underline;
+        }
+        .contact-info-card .social-links img {
+             vertical-align: middle;
+        }
+
+        /* --- Form Group Styles (for both forms) --- */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3a7c7c;
+            box-shadow: 0 0 0 3px rgba(58, 124, 124, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #3a7c7c;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #2f6464;
+        }
+        
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* --- Star Rating Styles --- */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse; /* This is the trick */
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none; /* Hide the radio button */
+        }
+        
+        .star-rating label {
+            font-size: 2.5rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        /* When a radio is checked, color all preceding (~) labels */
+        .star-rating input[type="radio"]:checked ~ label {
+            color: #facc15; /* gold */
+        }
+        
+        /* On hover, color the star and all preceding stars */
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #fde047; /* lighter gold */
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #bbbb9d;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        
+        footer a {
+            text-decoration: none;
+            color: #111;
+            font-weight: 500;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        img.logo {
+            margin-bottom: -4px;
+            margin-right: 5px;
+            vertical-align: middle;
+            white-space: inherit;
+        }
+        
+        /* --- Modal Popup (Copied from login.html) --- */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .popup {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            font-family: 'Inter', sans-serif;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .popup.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .popup.success { border-top: 4px solid #16a34a; }
+        .popup.error { border-top: 4px solid #dc2626; }
+        .popup.info { border-top: 4px solid #3a7c7c; }
+        .popup .close-btn {
+            background: none; border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 14px; right: 20px;
+            cursor: pointer;
+        }
+        .popup .close-btn:hover { color: #fff; }
+
+        /* --- Responsive Media Queries --- */
+        @media (max-width: 800px) {
+            .hideOnMobile {
+                display: none;
+            }
+            .menu-button {
+                display: block;
+            }
+            nav a {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 100%;
+            }
+            .card-style {
+                padding: 2rem 1.5rem;
+            }
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+<nav>
+    <ul class="sidebar">
+        <!-- Close icon for sidebar -->
+        <li onclick="hideSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+    </ul>
+    <ul>
+        <li>
+            <!-- Using a placeholder for the logo -->
+            <a href="index.html"><img src="image/LOGO.png" alt="LOGO" style="height:150px;width:auto; margin: 10px 0;"></a>
+        </li>
+        <li class="hideOnMobile"><a href="index.html">HOME</a></li>
+        <li class="hideOnMobile"><a href="about.html">ABOUT</a></li>
+        <li class="hideOnMobile"><a href="contact.html">CONTACT</a></li>
+        <li class="hideOnMobile"><a href="login.html">LOGIN</a></li>
+        <!-- Menu icon for mobile -->
+        <li class="menu-button" onclick="showSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+    </ul>
+</nav>
+
+<main class="contact-container">
+    <section class="contact-hero">
+        <h1>Contact Us</h1>
+        <p class="subtitle">We'd love to hear from you. Drop us a line!</p>
+    </section>
+
+    <div class="contact-content-wrapper">
+        <!-- Contact Form -->
+        <div class="contact-form-card card-style">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm" novalidate>
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Your Email</label>
+                    <input type="email" id="contactEmail" name="email" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" name="message" rows="6" required placeholder="Your message..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="contact-info-card card-style">
+            <h2>Contact Information</h2>
+            <p>You can also reach us through the following channels:</p>
+            <ul>
+                <li><strong>Email:</strong> support@crackgames.com</li>
+                <li><strong>Phone:</strong> +1 (234) 567-890</li>
+                <li><strong>Address:</strong> 123 Gamer Lane, Web City, DC 45678</li>
+            </ul>
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <p>
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="image/FACEBOOK.png" alt="Facebook" width="20" height="20"> Facebook
+                    </a>
+                </p>
+                <p>
+                    <a href="https://x.com/" target="_blank">
+                        <img src="image/X.png" alt="X" width="20" height="20"> X (Twitter)
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com" target="_blank">
+                        <img src="image/INSTAGRAM.png" alt="Instagram" width="20" height="20"> Instagram
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <section class="review-section">
+        <div class="review-card card-style">
+            <h2>Leave a Review</h2>
+            <form id="reviewForm" novalidate>
+                <!-- Star Rating Input -->
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewName">Your Name</label>
+                    <input type="text" id="reviewName" name="name" required placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label for="reviewMessage">Your Review</label>
+                    <textarea id="reviewMessage" name="message" rows="5" required placeholder="What did you think?"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Follow us on
+        <!-- Using placeholders for social media icons -->
+        <img class="logo" src="image/FACEBOOK.png" alt="Facebook" width="20" height="20"> <a href="https://www.facebook.com" target="_blank">Facebook</a> 
+        <img class="logo" src="image/X.png" alt="X" width="20" height="20"> <a href="https://x.com/" target="_blank">X</a>
+        <img class="logo" src="image/INSTAGRAM.png" alt="Instagram" width="20" height="20"> <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+<!-- Popup Modal HTML (Copied from login.html) -->
+<div id="popupOverlay" class="popup-overlay">
+  <div id="popupBox" class="popup">
+    <button class="close-btn" onclick="hidePopup()">×</button>
+    <p id="popupMessage"></p>
+  </div>
+</div>
+
+<!-- JavaScript for sidebar and popups -->
+<script>
+    /* --- Sidebar controls --- */
+    function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.style.display = 'flex';
+    }
+    function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.style.display = 'none';
+    }
+
+    /* --- Popup functions --- */
+    function showPopup(message, type = 'info', duration = 3000) {
+        const overlay = document.getElementById('popupOverlay');
+        const box = document.getElementById('popupBox');
+        const msg = document.getElementById('popupMessage');
+        
+        if (!overlay || !box || !msg) return; 
+
+        msg.textContent = message;
+        box.className = 'popup ' + type + ' show';
+        overlay.style.display = 'flex';
+        
+        clearTimeout(box._timer); // Clear any existing timer
+        box._timer = setTimeout(() => hidePopup(), duration);
+    }
+    
+    function hidePopup() {
+        const overlay = document.getElementById('popupOverlay');
+        const box = document.getElementById('popupBox');
+        
+        if (!overlay || !box) return; 
+
+        box.classList.remove('show');
+        setTimeout(() => overlay.style.display = 'none', 200);
+    }
+
+    // Add event listener to close button
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.classList.contains('close-btn') || e.target.textContent === '×')) {
+            hidePopup();
+        }
+    });
+
+    /* --- Form Handlers --- */
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const reviewForm = document.getElementById('reviewForm');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        // --- Contact Form Logic ---
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                const name = document.getElementById('contactName').value.trim();
+                const email = document.getElementById('contactEmail').value.trim();
+                const message = document.getElementById('contactMessage').value.trim();
+
+                if (name === '' || email === '' || message === '') {
+                    showPopup('Please fill out all fields.', 'error');
+                    return;
+                }
+
+                if (!emailRegex.test(email)) {
+                    showPopup('Please enter a valid email address.', 'error');
+                    return;
+                }
+
+                // If validation passes
+                showPopup('Thanks for your message! We\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            });
+        }
+
+        // --- Review Form Logic ---
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('reviewName').value.trim();
+                const message = document.getElementById('reviewMessage').value.trim();
+                const rating = reviewForm.querySelector('input[name="rating"]:checked');
+
+                if (name === '' || message === '') {
+                    showPopup('Please enter your name and review.', 'error');
+                    return;
+                }
+                
+                if (!rating) {
+                    showPopup('Please select a star rating.', 'error');
+                    return;
+                }
+
+                // If validation passes
+                showPopup('Thank you for your review!', 'success');
+                reviewForm.reset();
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

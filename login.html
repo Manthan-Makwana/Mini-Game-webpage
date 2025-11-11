@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - CRACK</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- CSS Reset --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Added for easier layout management */
+    }
+
+    /* --- Base Body Styles --- */
+    body {
+      min-height: 100vh;
+      background-image: url('image/game.jpg');
+      background-color: #f4f4f5; 
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Prioritizing Inter */
+      display: flex; /* Using flex to manage footer */
+      flex-direction: column; /* Stacks body content vertically */
+    }
+
+    /* --- Navigation Styles --- */
+    nav {
+      background-color: #bbbb9d;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    nav ul {
+      width: 100%;
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    nav li {
+      height: 70px;
+    }
+
+    nav a {
+      height: 100%;
+      padding: 0 30px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: black;
+      font-weight: 500; /* Added for better readability */
+    }
+
+    nav a:hover {
+      background-color: lightgray;
+    }
+
+    nav li:first-child {
+      margin-right: auto;
+    }
+
+    /* --- Sidebar Styles --- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      /* left: auto; */ /* This is default */
+      width: 250px;
+      height: 100vh;
+      z-index: 999;
+      background-color: rgba(255, 255, 255, 0.1); /* Adjusted for blur */
+      backdrop-filter: blur(10px);
+      box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .sidebar li {
+      width: 100%;
+    }
+
+    .sidebar a {
+      width: 100%;
+      color: #1f1f1f; /* Darker text for light blur background */
+    }
+
+    .menu-button {
+      display: none; /* Hidden by default, shown in media query */
+    }
+
+    /* --- Main Content & Login Form Styles --- */
+    main.login-container {
+      flex-grow: 1; /* This makes the main content fill the space */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem; /* Padding for small screens */
+    }
+
+    .login-card {
+      background: #ffffff; /* Solid white for a cleaner look */
+      /* backdrop-filter: blur(5px); */ /* No longer needed with solid background */
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      border-top: 4px solid #bbbb9d;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #3a7c7c; /* New accent color */
+      box-shadow: 0 0 0 3px rgba(58, 124, 124, 0.2); /* New accent color */
+    }
+
+    /* Style for validation tooltips */
+ 
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #3a7c7c; /* New accent color */
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #2f6464; /* Darker hover for new accent color */
+    }
+
+    .login-btn:active {
+      transform: scale(0.98);
+    }
+
+    .form-toggle {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: #555;
+    }
+
+    .form-toggle a {
+      color: #3a7c7c; /* New accent color */
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .form-toggle a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* --- Footer Styles --- */
+    footer {
+      background-color: #bbbb9d;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      /* margin-top: 750px; */ /* Removed fixed margin, flex-grow handles it */
+      border-top: 0px solid #eee;
+      width: 100%; /* Ensure footer spans full width */
+    }
+    
+    footer a {
+        text-decoration: none;
+        color: #111; /* Darker link for readability */
+        font-weight: 500;
+    }
+    
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    img.logo {
+      margin-bottom: -4px;
+      margin-right: 5px;
+      vertical-align: middle;
+      white-space: inherit;
+    }
+
+    /* --- Modal Popup --- */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup {
+      background: #1e1e1e;
+      color: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      font-family: 'Inter', sans-serif;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.25s ease;
+      position: relative; /* Added for close button positioning */
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .popup.success { border-top: 4px solid #16a34a; }
+    .popup.error { border-top: 4px solid #dc2626; }
+    .popup.info { border-top: 4px solid #3a7c7c; } /* New accent color */
+
+    .popup .close-btn {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .popup .close-btn:hover { color: #fff; }
+    
+    /* --- Responsive Media Queries --- */
+    @media (max-width: 800px) {
+      .hideOnMobile {
+        display: none;
+      }
+
+      .menu-button {
+        display: block;
+      }
+      
+      nav a {
+        padding: 0 20px; /* Reduce padding on smaller screens */
+      }
+    }
+
+    @media (max-width: 400px) {
+      .sidebar {
+        width: 100%;
+        
+      }
+      
+     
+      
+      .login-card {
+        padding: 2rem 1.5rem; /* Reduce padding on very small screens */
+      }
+      
+      .popup {
+        width: 95%; /* More width for popup on small screens */
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <ul class="sidebar">
+      <li onclick="hideSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+      <li><a href=""></a></li>
+      <li><a href=""></a></li>
+      <li><a href=""></a></li>
+      <li><a href=""></a></li>
+    </ul>
+    <ul>
+      <!-- Using a placeholder for the logo -->
+      <li><a href="index.html"><img src="image/LOGO.png" alt="LOGO" style="height:150px;width:auto; margin: 10px 0;"></a></li>
+      <!-- Added hideOnMobile class to main nav items -->
+      <li class="hideOnMobile"><a href=""></a></li>
+      <li class="hideOnMobile"><a href=""></a></li>
+      <li class="hideOnMobile"><a href=""></a></li>
+      <li class="hideOnMobile"><a href=""></a></li>
+      <li class="menu-button" onclick="showSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <main class="login-container">
+    <div class="login-card">
+      <h2 id="formTitle">Login</h2>
+
+      <!-- Login Form -->
+      <form id="loginForm" novalidate>
+        <div class="input-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" name="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="input-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" required minlength="8"
+            placeholder="••••••••"
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}"
+            title="At least 8 characters, with 1 lowercase, 1 uppercase, and 1 symbol">
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+        <p class="form-toggle">Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display:none" novalidate>
+        <div class="input-group">
+          <label for="registerUsername">Username (Email)</label>
+          <input type="email" id="registerUsername" required placeholder="you@example.com">
+        </div>
+
+        <div class="input-group">
+          <label for="registerContact">Contact No</label>
+          <input type="tel" id="registerContact" required placeholder="10-digit mobile number"
+            pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
+        </div>
+
+        <div class="input-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" id="registerPassword" required minlength="8"
+            placeholder="Create strong password"
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}">
+        </div>
+
+        <button type="submit" class="login-btn">Register</button>
+        <p class="form-toggle">Already have an account? <a href="#" id="showLogin">Login here</a></p>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Follow us on
+      <!-- Using placeholders for social media icons -->
+      <img class="logo" src="image/FACEBOOK.png" alt="Facebook" width="20" height="20"> <a href="https://www.facebook.com" target="_blank">Facebook</a>
+      <img class="logo" src="image/X.png" alt="X" width="20" height="20"> <a href="https://x.com/" target="_blank">X</a>
+      <img class="logo" src="image/INSTAGRAM.png" alt="Instagram" width="20" height="20"> <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    </p>
+  </footer>
+
+  <!-- Popup Modal -->
+  <div id="popupOverlay" class="popup-overlay">
+    <div id="popupBox" class="popup">
+      <button class="close-btn" onclick="hidePopup()">×</button>
+      <p id="popupMessage"></p>
+    </div>
+  </div>
+
+  <script>
+    /* Sidebar controls */
+    function showSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) sidebar.style.display = 'flex';
+    }
+    function hideSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) sidebar.style.display = 'none';
+    }
+
+    /* Popup functions */
+    function showPopup(message, type = 'info', duration = 2500) {
+      const overlay = document.getElementById('popupOverlay');
+      const box = document.getElementById('popupBox');
+      const msg = document.getElementById('popupMessage');
+      
+      if (!overlay || !box || !msg) return; // Guard clause
+
+      msg.textContent = message;
+      box.className = 'popup ' + type + ' show';
+      overlay.style.display = 'flex';
+      
+      clearTimeout(box._timer); // Clear any existing timer
+      box._timer = setTimeout(() => hidePopup(), duration);
+    }
+    
+    function hidePopup() {
+      const overlay = document.getElementById('popupOverlay');
+      const box = document.getElementById('popupBox');
+      
+      if (!overlay || !box) return; // Guard clause
+
+      box.classList.remove('show');
+      // Wait for animation to finish before hiding overlay
+      setTimeout(() => overlay.style.display = 'none', 200);
+    }
+
+    // Add event listener to close button, even if it was just created
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.classList.contains('close-btn') || e.target.textContent === '×')) {
+            hidePopup();
+        }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const showRegister = document.getElementById('showRegister');
+      const showLogin = document.getElementById('showLogin');
+      const formTitle = document.getElementById('formTitle');
+
+      // Simple regex checks
+      const req = {
+        lower: /[a-z]/,
+        upper: /[A-Z]/,
+        symbol: /[^A-Za-z0-9]/,
+        len: /^.{8,}$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+      };
+
+      if (showRegister) {
+        showRegister.addEventListener('click', e => {
+          e.preventDefault();
+          if (loginForm) loginForm.style.display = 'none';
+          if (registerForm) registerForm.style.display = 'block';
+          if (formTitle) formTitle.textContent = 'Register';
+        });
+      }
+
+      if (showLogin) {
+        showLogin.addEventListener('click', e => {
+          e.preventDefault();
+          if (loginForm) loginForm.style.display = 'block';
+          if (registerForm) registerForm.style.display = 'none';
+          if (formTitle) formTitle.textContent = 'Login';
+        });
+      }
+
+      // LOGIN validation
+      if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const email = document.getElementById('loginEmail').value.trim();
+          const pass = document.getElementById('loginPassword').value;
+
+          // --- New Empty Checks ---
+          if (email === "") {
+            showPopup('Please enter your email address.', 'error'); return;
+          }
+          if (pass === "") {
+            showPopup('Please enter your password.', 'error'); return;
+          }
+          // --- End of New Checks ---
+
+          if (!req.email.test(email)) {
+            showPopup('Please enter a valid email address.', 'error'); return;
+          }
+          if (!(req.lower.test(pass) && req.upper.test(pass) && req.symbol.test(pass) && req.len.test(pass))) {
+            showPopup('Password must contain uppercase, lowercase, symbol, and be 8+ chars.', 'error'); return;
+          }
+
+          // --- Specific Password Check ---
+          const correctEmail = 'ram@gmail.com';
+          const correctPassword = 'Hanuman@123';
+
+          if (email === correctEmail && pass === correctPassword) {
+            showPopup('Login successful! Redirecting…', 'success', 1500);
+            setTimeout(() => {
+              window.location.href = 'index.html'; 
+            }, 1300);
+          } else {
+            showPopup('Invalid email or password. Please try again.', 'error');
+          }
+          // --- End of Specific Password Check ---
+        });
+      }
+
+      // REGISTER validation
+      if (registerForm) {
+        registerForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const email = document.getElementById('registerUsername').value.trim();
+          const contact = document.getElementById('registerContact').value.trim();
+          const pass = document.getElementById('registerPassword').value;
+
+          // --- New Empty Checks ---
+          if (email === "") {
+            showPopup('Please enter an email address for your username.', 'error'); return;
+          }
+          if (contact === "") {
+            showPopup('Please enter your contact number.', 'error'); return;
+          }
+          if (pass === "") {
+            showPopup('Please create a password.', 'error'); return;
+          }
+          // --- End of New Checks ---
+
+          if (!req.email.test(email)) {
+            showPopup('Username must be a valid email address.', 'error'); return;
+          }
+          
+          const contactRegex = /^[0-9]{10}$/;
+          if (!contactRegex.test(contact)) {
+            showPopup('Please enter a valid 10-digit contact number.', 'error'); return;
+          }
+
+          if (!(req.lower.test(pass) && req.upper.test(pass) && req.symbol.test(pass) && req.len.test(pass))) {
+            showPopup('Password must contain uppercase, lowercase, symbol, and be 8+ chars.', 'error'); return;
+          }
+
+          // In a real app, you would send this to a server
+          showPopup('Registration successful! (Demo) Please log in.', 'success');
+          
+          // Automatically switch to the login form
+          if (showLogin) showLogin.click(); 
+          // You could also pre-fill the login email
+          // document.getElementById('loginEmail').value = email;
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

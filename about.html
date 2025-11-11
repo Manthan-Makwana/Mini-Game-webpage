@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CRACK</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- Base Body Styles --- */
+        body {
+            min-height: 100vh;
+            background-color: #f4f4f5; /* Clean light gray background */
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- Navigation Styles (Consistent with login.html) --- */
+        nav {
+            background-color: #bbbb9d;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        nav ul {
+            width: 100%;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav li {
+            height: 70px;
+        }
+
+        nav a {
+            height: 100%;
+            padding: 0 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: black;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background-color: lightgray;
+        }
+
+        nav li:first-child {
+            margin-right: auto;
+        }
+        
+        /* Adjust logo in nav */
+        nav li img {
+            height: 50px; /* Standardized height */
+            width: auto;
+            margin: 10px 0;
+        }
+
+        /* --- Sidebar Styles (Consistent with login.html) --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100vh;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .sidebar li {
+            width: 100%;
+        }
+
+        .sidebar a {
+            width: 100%;
+            color: #1f1f1f;
+        }
+
+        .menu-button {
+            display: none;
+        }
+        
+        /* --- Main Content --- */
+        main {
+            flex-grow: 1; /* Makes content fill space */
+            width: 100%;
+            max-width: 1100px; /* Limits content width for readability */
+            margin: 0 auto; /* Centers the content */
+            padding: 2rem 1rem;
+        }
+
+        .about-section {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem 3rem;
+            width: 100%;
+        }
+
+        .about-section h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2.5rem;
+            border-bottom: 3px solid #bbbb9d;
+            padding-bottom: 0.5rem;
+            display: inline-block; /* Allows border to wrap title */
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem; /* Space between content blocks */
+        }
+
+        .about-content .content-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        /* Apply to even-numbered blocks for alternating layout */
+        .about-content .content-block:nth-child(even) {
+            flex-direction: column-reverse; /* Flips order */
+        }
+
+
+        .about-content .about-image {
+            width: 100%;
+            max-width: 500px; /* Limits image size */
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #444;
+            text-align: center;
+        }
+        
+        /* --- Responsive Layout for About Content --- */
+        @media (min-width: 768px) {
+            .about-content .content-block {
+                flex-direction: row; /* Side-by-side on larger screens */
+                text-align: left;
+                gap: 2rem;
+            }
+            
+            .about-content .content-block p {
+                text-align: left;
+                flex: 1; /* Takes up remaining space */
+            }
+            
+            .about-content .about-image {
+                flex: 1; /* Takes up equal space */
+                max-width: 450px;
+            }
+            
+            /* Alternating layout for even blocks */
+            .about-content .content-block:nth-child(even) {
+                flex-direction: row-reverse; /* Image on the left, text on the right */
+            }
+        }
+
+
+        /* --- Footer Styles (Consistent with login.html) --- */
+        footer {
+            background-color: #bbbb9d;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+            margin-top: 2rem; /* Space above footer */
+        }
+        
+        footer a {
+            text-decoration: none;
+            color: #111;
+            font-weight: 500;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        img.logo {
+            margin-bottom: -4px;
+            margin-right: 5px;
+            vertical-align: middle;
+            white-space: inherit;
+        }
+
+        /* --- Responsive Media Queries (Nav) --- */
+        @media (max-width: 800px) {
+            .hideOnMobile {
+                display: none;
+            }
+            .menu-button {
+                display: block;
+            }
+            nav a {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 100%;
+            }
+            .about-section {
+                padding: 2rem 1.5rem;
+            }
+            .about-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+<nav>
+    <ul class="sidebar">
+        <li onclick="hideSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+    </ul>
+    <ul>
+        <li>
+            <!-- Using a placeholder for the logo -->
+            <a href="index.html"><img src="image/LOGO.png" alt="LOGO" style="height:150px;width:auto; margin: 10px 0;"></a>
+        </li>
+        <li class="hideOnMobile"><a href="index.html">HOME</a></li>
+        <li class="hideOnMobile"><a href="about.html">ABOUT</a></li>
+        <li class="hideOnMobile"><a href="contact.html">CONTACT</a></li>
+        <li class="hideOnMobile"><a href="login.html">LOGIN</a></li>
+        <li class="menu-button" onclick="showSidebar()"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+    </ul>
+</nav>
+
+<script>
+    function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.style.display = 'flex';
+    }
+    function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.style.display = 'none';
+    }
+</script>
+
+<main>
+    <section class="about-section">
+        <h1>About Us</h1>
+        
+        <div class="about-content">
+            <!-- Content Block 1 -->
+            <div class="content-block">
+                <img src="image/gameing.png" alt="Gaming Setup" class="about-image">
+                <p>Welcome to CRACK - your premier gaming destination. We specialize in delivering engaging, high-quality games for players of all skill levels. Our carefully curated collection ensures endless entertainment while maintaining the highest standards of safety and accessibility.</p>
+            </div>
+
+            <!-- Content Block 2 (Layout will alternate) -->
+            <div class="content-block">
+                <img src="image/gaming comunity.png" alt="Gaming Community" class="about-image">
+                <p>Founded by passionate gamers, CRACK aims to create an inclusive community where players can connect, compete, and have fun. Our platform offers both casual and competitive gaming experiences, suited for quick sessions or extended gameplay.</p>
+            </div>
+            
+            <!-- Content Block 3 -->
+            <div class="content-block">
+                <img src="image/gameing.png" alt="Gaming Tournament" class="about-image">
+                <p>Join us in our mission to make gaming accessible, enjoyable, and memorable for everyone!</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Follow us on
+        <!-- Using placeholders for social media icons -->
+        <img class="logo" src="image/FACEBOOK.png" alt="Facebook" width="20" height="20"> <a href="https://www.facebook.com" target="_blank">Facebook</a> 
+        <img class="logo" src="image/X.png" alt="X" width="20" height="20"> <a href="https://x.com/" target="_blank">X</a>
+        <img class="logo" src="image/INSTAGRAM.png" alt="Instagram" width="20" height="20"> <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+</body>
+</html>
